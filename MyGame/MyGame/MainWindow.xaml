@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="MyGame.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    Title="SIDEQUEST - 街角行动">
+    <Grid Background="#101211">
+        <Grid.Resources>
+            <AcrylicBrush x:Key="TitleBarAcrylicBrush"
+                          TintColor="#20251F"
+                          TintOpacity="0.72"
+                          FallbackColor="#E620251F" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="36"
+              Background="{StaticResource TitleBarAcrylicBrush}">
+            <TextBlock Text="SIDEQUEST  ·  街角行动"
+                       Margin="16,0,0,0" VerticalAlignment="Center"
+                       FontSize="12" FontWeight="SemiBold"
+                       CharacterSpacing="45" Foreground="#E8EEE2" />
+        </Grid>
+        <Grid x:Name="GamePage" Grid.Row="1">
+        <Grid Margin="30,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="2,0,2,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Spacing="13" VerticalAlignment="Center">
+                    <Border Width="42" Height="42" CornerRadius="14" Background="#B8F36A">
+                        <TextBlock Text="S" FontSize="23" FontWeight="Bold" Foreground="#172015"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel Spacing="2">
+                        <TextBlock Text="SIDEQUEST" FontSize="19" FontWeight="Bold"
+                                   CharacterSpacing="110" Foreground="#F1F1E9" />
+                        <TextBlock Text="街角行动  /  一点小麻烦" FontSize="11"
+                                   CharacterSpacing="45" Foreground="#8F958B" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Border Grid.Column="1" Background="#1B1F1B" CornerRadius="12"
+                        Padding="16,9" Margin="0,0,10,0">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="得分" FontSize="11" Foreground="#969D91"
+                                   VerticalAlignment="Center" />
+                        <TextBlock x:Name="ScoreText" Text="000000" FontSize="18"
+                                   FontFamily="Consolas" FontWeight="SemiBold"
+                                   Foreground="#C5F47A" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Background="#1B1F1B" CornerRadius="12"
+                        Padding="14,9">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="HP" FontSize="11" FontWeight="SemiBold"
+                                   Foreground="#969D91" VerticalAlignment="Center" />
+                        <Border Width="104" Height="8" CornerRadius="4"
+                                Background="#343A32" VerticalAlignment="Center">
+                            <Border x:Name="HealthBarFill" Width="104" Height="8"
+                                    HorizontalAlignment="Left" CornerRadius="4"
+                                    Background="#B8F36A" />
+                        </Border>
+                        <TextBlock x:Name="HealthText" Text="40 / 40" FontSize="12"
+                                   FontFamily="Consolas" Foreground="#F1F1E9"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="1" CornerRadius="22" Background="#171A18"
+                    BorderBrush="#2D332D" BorderThickness="1" Padding="1">
+                <Grid x:Name="PlayfieldHost">
+                    <Grid x:Name="Arena" Background="#171A18">
+                        <canvas:CanvasControl x:Name="GameCanvas" ClearColor="#FF171A18" />
+                    </Grid>
+                    <Grid x:Name="GameControls" Margin="16" VerticalAlignment="Top"
+                          HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="PauseButton" Width="42" Height="42"
+                                    Background="#30392C" Foreground="#D7F2AE"
+                                    CornerRadius="14" Padding="0" FontSize="17"
+                                    FontFamily="Segoe MDL2 Assets" Content="&#xE769;"
+                                    ToolTipService.ToolTip="暂停" />
+                            <Button x:Name="ResetButton" Width="42" Height="42"
+                                    Background="#30392C" Foreground="#D7F2AE"
+                                    CornerRadius="14" Padding="0" FontSize="17"
+                                    FontFamily="Segoe MDL2 Assets" Content="&#xE72C;"
+                                    ToolTipService.ToolTip="重置本关" />
+                            <Button x:Name="ExitLevelButton" Width="42" Height="42"
+                                    Background="#30392C" Foreground="#E7B8A8"
+                                    CornerRadius="14" Padding="0" FontSize="17"
+                                    FontFamily="Segoe MDL2 Assets" Content="&#xE8BB;"
+                                    ToolTipService.ToolTip="返回选关" />
+                        </StackPanel>
+                    </Grid>
+                    <Border x:Name="WeaponHud" Margin="16" Padding="13,9"
+                            VerticalAlignment="Top" HorizontalAlignment="Right"
+                            Background="#B820251F" CornerRadius="13"
+                            BorderBrush="#47513F" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock x:Name="WeaponText" Text="01  手枪"
+                                       FontSize="12" FontWeight="SemiBold"
+                                       Foreground="#F2F1E8" VerticalAlignment="Center" />
+                            <TextBlock x:Name="AmmoText" Text="20 / 20"
+                                       FontSize="11" FontFamily="Consolas"
+                                       Foreground="#C5F47A" VerticalAlignment="Center" />
+                            <Border Background="#39452F" CornerRadius="8" Padding="8,4">
+                                <TextBlock x:Name="GrenadeText" Text="榴弹 × 0"
+                                           FontSize="11" Foreground="#D7F2AE" />
+                            </Border>
+                            <TextBlock x:Name="ReloadText" Text=""
+                                       FontSize="10" Foreground="#FFD18A"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                    <Button x:Name="InputSink" Width="1" Height="1" Opacity="0"
+                            HorizontalAlignment="Left" VerticalAlignment="Top"
+                            IsTabStop="True" />
+                    <Grid x:Name="Overlay" Background="#C8101210" Visibility="Collapsed">
+                        <Border MaxWidth="490" Margin="24" Padding="34,30"
+                                CornerRadius="24" Background="#20251F"
+                                BorderBrush="#394137" BorderThickness="1"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border.RenderTransform>
+                                <TranslateTransform x:Name="OverlayCardTranslate" />
+                            </Border.RenderTransform>
+                            <Grid>
+                                <StackPanel x:Name="MessagePanel" HorizontalAlignment="Center"
+                                            Spacing="14" Visibility="Collapsed">
+                                    <TextBlock x:Name="MessageTitle" Text="游戏已暂停"
+                                               FontSize="28" FontWeight="Bold"
+                                               Foreground="#F3F2E9" HorizontalAlignment="Center" />
+                                    <TextBlock x:Name="MessageDescription" Text="休息一下，准备好了再继续。"
+                                               FontSize="14" TextWrapping="Wrap" TextAlignment="Center"
+                                               Foreground="#B0B5A9" MaxWidth="340" />
+                                    <Button x:Name="ResumeButton" Content="继续游戏"
+                                            MinWidth="200" Height="44"
+                                            Background="#B8F36A" Foreground="#172015"
+                                            FontSize="14" FontWeight="SemiBold" CornerRadius="14" />
+                                    <Button x:Name="ReturnToSelectionButton" Content="返回选关"
+                                            MinWidth="200" Height="40"
+                                            Background="#343C30" Foreground="#E7EBDD"
+                                            FontSize="13" CornerRadius="13" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="2" Margin="2,14,2,0">
+                <TextBlock Text="A / D　移动" FontSize="12" Foreground="#9BA195"
+                           VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                    <Border Background="#222722" CornerRadius="7" Padding="9,5">
+                        <TextBlock Text="SPACE" FontSize="10" FontFamily="Consolas"
+                                   Foreground="#D8DDCF" />
+                    </Border>
+                    <TextBlock Text="跳跃" FontSize="12" Foreground="#9BA195"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text="·" Margin="4,0" FontSize="14" Foreground="#555D52"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text="鼠标瞄准　左键射击" FontSize="12" Foreground="#9BA195"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text="·" Margin="4,0" FontSize="14" Foreground="#555D52"
+                               VerticalAlignment="Center" />
+                    <TextBlock Text="滚轮 / 1 / 2 / 3 切换　R 换弹" FontSize="12" Foreground="#9BA195"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+    <Grid x:Name="SelectionPage" Grid.Row="1" Visibility="Collapsed" Background="#101211">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="SelectionPageTranslate" />
+        </Grid.RenderTransform>
+        <Grid x:Name="SelectionContent" Margin="48,34">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="SelectionContentTranslate" />
+            </Grid.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Spacing="6">
+                <TextBlock x:Name="SelectionEyebrow" Text="SIDEQUEST / CHAPTER SELECT"
+                           FontSize="10" CharacterSpacing="100" Foreground="#B8F36A" />
+                <TextBlock x:Name="SelectionTitle" Text="选择行动区域"
+                           FontSize="30" FontWeight="Bold" Foreground="#F3F2E9" />
+                <TextBlock x:Name="SelectionDescription"
+                           Text="十个区域，各有不同敌人与地形。抵达出口即可撤离。"
+                           FontSize="13" Foreground="#A5AB9E" />
+            </StackPanel>
+            <Button x:Name="TutorialButton" Grid.Row="1" Content="练习场  ·  移动 / 射击 / 榴弹"
+                    HorizontalAlignment="Stretch" Height="44" Margin="0,18,0,12"
+                    Background="#303A29" Foreground="#D7F2AE" FontSize="13"
+                    FontWeight="SemiBold" CornerRadius="13" />
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled" Padding="0,0,8,0">
+                <StackPanel Spacing="8">
+                    <Button x:Name="LevelButton1" Content="01   小巷巡逻　·　基础训练"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton2" Content="02   霓虹转角　·　投弹手出没"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton3" Content="03   旧车站　·　枪手封锁"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton4" Content="04   屋顶之间　·　装甲巡逻"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton5" Content="05   货运码头　·　小头目：铁拳"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#343026" Foreground="#FFD18A" CornerRadius="12" />
+                    <Button x:Name="LevelButton6" Content="06   雨夜市场　·　混合火力"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton7" Content="07   地下通道　·　爆破小队"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton8" Content="08   信号高塔　·　远程枪手"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton9" Content="09   风暴边界　·　精英混编"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#1D231D" Foreground="#E7EBDD" CornerRadius="12" />
+                    <Button x:Name="LevelButton10" Content="10   核心堡垒　·　最终头目：风暴核心"
+                            Height="48" HorizontalContentAlignment="Left" Padding="18,0"
+                            Background="#38262B" Foreground="#FFB2A2" CornerRadius="12" />
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Grid.Row="3" Margin="0,12,0,0">
+                <TextBlock x:Name="SelectionHint"
+                           Text="A / D 移动　空格跳跃　鼠标瞄准　左键射击　·　1 / 2 / 3 切换　R 换弹"
+                           FontSize="11" Foreground="#858D80" VerticalAlignment="Center" />
+                <Button x:Name="QuitButton" Content="退出游戏" HorizontalAlignment="Right"
+                        MinWidth="112" Height="36" Padding="14,0"
+                        Background="Transparent" Foreground="#9BA195"
+                        FontSize="12" CornerRadius="11" />
+            </Grid>
+        </Grid>
+    </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+# WinUI / MSBuild 编译输出
+bin/
+obj/
+x64/
+x86/
+ARM64/
+.vs/
+packages/
+
+# WinUI自动生成代码，千万不要提交！
+**/Generated Files/
+**/Generated\ Files/
+
+# VS 用户本地配置
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.pdb
+*.ilk
+*.exe
+*.log
+
+# 系统垃圾
+.DS_Store
+Thumbs.db
