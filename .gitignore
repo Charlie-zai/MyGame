@@ -24,3 +24,4 @@ packages/
 # ÏµÍ³À¬»ø
 .DS_Store
 Thumbs.db
+*.cache
