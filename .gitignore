@@ -25,3 +25,23 @@ packages/
 .DS_Store
 Thumbs.db
 *.cache
+
+# 编译输出
+**/bin/
+**/obj/
+**/x64/Release/
+**/x64/Debug/
+**/ARM64/Release/
+**/ARM64/Debug/
+
+# 打包中间文件
+**/AppPackages/
+**/BundleArtifacts/
+**/ipch/
+**/.vs/
+*.log
+
+# 签名证书
+*.pfx
+# 编译生成的最终清单（不是Package.appxmanifest！）
+**/AppxManifest.xml
